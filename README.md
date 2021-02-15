@@ -28,8 +28,8 @@ The following variables can be set:
 
 Right now:
 
-* Thermostats data
-* Traffic data
+* Thermostats data (every 15 minutes)
+* Traffic data (every minute)
 
 TODO: phone calls, power, etc. - feel free to contribute
 
