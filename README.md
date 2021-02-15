@@ -1,2 +1,2 @@
-# fritzflux
-Scarpe Fritzbox date into InfluxDB (traffic, thermstats)
+# FritzFlux
+Scarpe Fritzbox data into InfluxDB (traffic, thermostats, &hellip;)
