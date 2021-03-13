@@ -1,6 +1,6 @@
 # FritzFlux
 
-Scarpe Fritzbox data into InfluxDB (traffic, thermostats, &hellip;)
+Scarpe Fritzbox data into InfluxDB (traffic, thermostats, &hellip;) - works with InfluxDB 1.8+ (especially with 2.x)
 
 This service uses https://github.com/bpicode/fritzctl
 
