@@ -1,0 +1,20 @@
+[Unit]
+Description=Fritzflux Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+#User=USER
+Environment=FRITZPW="PASSWORD"
+Environment=FRITZUSER="api"
+Environment=INFLUXURL="http://localhost:8086"
+Environment=INFLUXAUTH="APITOKEN"
+#Environment=INFLUXORG="MYORG"
+#Environment=INFLUXBUCKET="fritz"
+ExecStart=/usr/local/bin/fritzflux
+
+[Install]
+WantedBy=multi-user.target
