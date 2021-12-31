@@ -14,6 +14,8 @@ Environment=INFLUXURL="http://localhost:8086"
 Environment=INFLUXAUTH="APITOKEN"
 #Environment=INFLUXORG="MYORG"
 #Environment=INFLUXBUCKET="fritz"
+#Environment=INFLUXBTHERMO="fritz"
+#Environment=INFLUXBTRAFFIC="fritz"
 ExecStart=/usr/local/bin/fritzflux
 
 [Install]
