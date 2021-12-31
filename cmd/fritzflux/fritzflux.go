@@ -18,6 +18,8 @@ func main() {
 	influxAuth := os.Getenv("INFLUXAUTH")
 	influxOrg := os.Getenv("INFLUXORG")
 	influxBucket := os.Getenv("INFLUXBUCKET")
+	influxBucketThermo := os.Getenv("INFLUXBTHERMO")
+	influxBucketTraffic := os.Getenv("INFLUXBTRAFFIC")
 
 	// fallbacks
 	if fritzUrl == "" {
@@ -29,16 +31,27 @@ func main() {
 	if influxBucket == "" {
 		influxBucket = "fritz"
 	}
+	if influxBucketThermo == "" {
+		influxBucketThermo = influxBucket
+	}
+	if influxBucketTraffic == "" {
+		influxBucketTraffic = influxBucket
+	}
 
 	// create influx endpoint
 	client := influxdb2.NewClient(influxUrl, influxAuth)
-	writeAPI := client.WriteAPI(influxOrg, influxBucket)
+	writeAPIThermo := client.WriteAPI(influxOrg, influxBucketThermo)
+	writeAPITraffic := client.WriteAPI(influxOrg, influxBucketTraffic)
 
 	// log errors
-	errorsCh := writeAPI.Errors()
+	errorsCh1 := writeAPIThermo.Errors()
+	errorsCh2 := writeAPITraffic.Errors()
 	go func() {
-		for err := range errorsCh {
-			log.Printf("influxdb api write error: %s", err)
+		for err := range errorsCh1 {
+			log.Printf("influxdb thermo api write error: %s", err)
+		}
+		for err := range errorsCh2 {
+			log.Printf("influxdb traffic api write error: %s", err)
 		}
 	}()
 
@@ -53,7 +66,7 @@ func main() {
 	// start logging traffic stats
 	wg.Add(1)
 	go func() {
-		fritzbox.LogStats(c, writeAPI)
+		fritzbox.LogStats(c, writeAPITraffic)
 	}()
 
 	// for some reason we have a login for the fritzbox and one for home auto...
@@ -65,7 +78,7 @@ func main() {
 	// start logging thermostats
 	wg.Add(1)
 	go func() {
-		fritzbox.LogThermostats(h, writeAPI)
+		fritzbox.LogThermostats(h, writeAPIThermo)
 	}()
 
 	// wait for go routines to end

@@ -14,7 +14,7 @@ go build github.com/mkalus/fritzflux/cmd/fritzflux && ./fritzflux
 
 ## Environmental variables
 
-The following variables can be set:
+The following variables can/must be set:
 
 * `FRITZURL` URL to find fritz box at (default: `https://fritz.box:443`)
 * `FRITZUSER` Fritzbox user (empty for default user)
@@ -23,6 +23,8 @@ The following variables can be set:
 * `INFLUXAUTH` InfluxDB auth token or user:password for InfluxDB 1.8
 * `INFLUXORG` InfluxDB org name (can be empty)
 * `INFLUXBUCKET` InfluxDB bucket/database (default: `fritz`)
+* `INFLUXBTHERMO` InfluxDB bucket/database for thermostats (default empty, will overwrite `INFLUXBUCKET`, if set)
+* `INFLUXBTRAFFIC` InfluxDB bucket/database for traffic data (default empty, will overwrite `INFLUXBUCKET`, if set)
 
 ## Scraped data
 
